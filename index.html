@@ -38,11 +38,12 @@
       h2 {
         margin-bottom: 10px;
         font-family: Georgia, serif;
-        text-shadow: 1px 1px #000020;
+        text-shadow: 2px 2px #474973;
       }
 
       h1 {
-        color: #fcffff;
+        color: #ffffff;
+        text-align: center;
       }
 
       h2 {
@@ -53,7 +54,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
-        background: #fcffff;
+        background: rgba(252, 255, 255, 0.6);
         padding: 15px;
         border: 3px solid #9ca2ef;
         border-radius: 12px;
@@ -68,7 +69,7 @@
         padding: 8px;
         border: 2px solid #171a4a;
         border-radius: 6px;
-        background: #bbbeef;
+        background: rgba(252, 255, 255, 0.6);
       }
 
       button {
@@ -76,11 +77,11 @@
         color: #ffffff;
         font-weight: bold;
         cursor: pointer;
-        transition: background 0.5s, transform 0.1s;
+        transition: background 0.5s, transform 0.5s;
       }
 
       button:hover {
-        background: #ee6c4d;
+        background: #ee64;
         transform: scale(1.03);
       }
 
@@ -104,7 +105,7 @@
       li.completed {
         text-decoration: line-through;
         color: gray;
-        background: #a69cac;
+        background: rgba(252, 255, 255, 0.6); /* 0.6 = 60% de opacidad */
         border-color: #161b33;
         transition: all 0.3s ease;
       }
@@ -128,10 +129,10 @@
   <body>
     <div class="container">
       <div class="quests-section">
-        <h1>Telemnio's Odyssey</h1>
+        <h1>Today's quests!</h1>
 
         <form id="questForm">
-          <label for="title">Mission:</label>
+          <label for="title">Quest:</label>
           <input type="text" id="title" required />
 
           <label for="goal">Details :3 </label>
@@ -143,7 +144,7 @@
         <h2>Full speed ahead!</h2>
         <ul id="activeQuests"></ul>
 
-        <h2>zzzz shooo mimimi</h2>
+        <h2>zzzz</h2>
         <ul id="completedQuests"></ul>
       </div>
 
@@ -159,7 +160,12 @@
         const completedQuests = document.getElementById("completedQuests");
         const characterImg = document.getElementById("character");
 
-        const characterImages = ["img/personaje1.png", "img/personaje2.png"];
+        // RESPETA LOS NOMBRES DE LAS IMAGENES Y BORRA ESTO HHEHE
+        const characterImages = [
+          "img/personaje1.png",
+          "img/personaje2.png",
+          "img/personaje3.png",
+        ];
         let currentImage = 0;
 
         questForm.addEventListener("submit", (e) => {
@@ -179,7 +185,7 @@
           checkbox.type = "checkbox";
 
           const text = document.createElement("div");
-          text.innerHTML = `<strong>${title}</strong><br>"El hombre no obedece a los gritos… pero se doblega ante un pacible ronroneo.”
+          text.innerHTML = `<strong>${title}</strong><br>-
  ${goal}`;
 
           checkbox.addEventListener("change", () => {
