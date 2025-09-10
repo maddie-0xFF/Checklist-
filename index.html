@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es/en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Quest Tracker</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Georgia, serif;
+        background: #7178df url("img/fondo.jpg") center/cover no-repeat fixed;
+        color: #3f448c;
+        padding: 20px;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      @media (min-width: 768px) {
+        .container {
+          flex-direction: row;
+          gap: 40px;
+        }
+      }
+
+      .quests-section {
+        flex: 2;
+      }
+
+      h1,
+      h2 {
+        margin-bottom: 10px;
+        font-family: Georgia, serif;
+        text-shadow: 1px 1px #000020;
+      }
+
+      h1 {
+        color: #fcffff;
+      }
+
+      h2 {
+        color: #fcffff;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background: #fcffff;
+        padding: 15px;
+        border: 3px solid #9ca2ef;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.2);
+      }
+
+      input,
+      textarea,
+      button {
+        font-family: inherit;
+        padding: 8px;
+        border: 2px solid #171a4a;
+        border-radius: 6px;
+        background: #bbbeef;
+      }
+
+      button {
+        background: #031926;
+        color: #ffffff;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background 0.5s, transform 0.1s;
+      }
+
+      button:hover {
+        background: #ee6c4d;
+        transform: scale(1.03);
+      }
+
+      ul {
+        list-style-type: none;
+        margin-bottom: 20px;
+      }
+
+      li {
+        background: #ffffff;
+        margin-bottom: 10px;
+        padding: 12px;
+        border: 3px solid #c49b3e;
+        border-radius: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
+      }
+
+      li.completed {
+        text-decoration: line-through;
+        color: gray;
+        background: #a69cac;
+        border-color: #161b33;
+        transition: all 0.3s ease;
+      }
+
+      .character-section {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .character-section img {
+        max-width: 250px;
+        border: 6px solid #474973;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="quests-section">
+        <h1>Telemnio's Odyssey</h1>
+
+        <form id="questForm">
+          <label for="title">Mission:</label>
+          <input type="text" id="title" required />
+
+          <label for="goal">Details :3 </label>
+          <textarea id="goal" required></textarea>
+
+          <button type="submit">Submit!</button>
+        </form>
+
+        <h2>Full speed ahead!</h2>
+        <ul id="activeQuests"></ul>
+
+        <h2>zzzz shooo mimimi</h2>
+        <ul id="completedQuests"></ul>
+      </div>
+
+      <div class="character-section">
+        <img id="character" src="img/personaje1.png" alt="Hero :3" />
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const questForm = document.getElementById("questForm");
+        const activeQuests = document.getElementById("activeQuests");
+        const completedQuests = document.getElementById("completedQuests");
+        const characterImg = document.getElementById("character");
+
+        const characterImages = ["img/personaje1.png", "img/personaje2.png"];
+        let currentImage = 0;
+
+        questForm.addEventListener("submit", (e) => {
+          e.preventDefault();
+
+          const title = document.getElementById("title").value;
+          const goal = document.getElementById("goal").value;
+
+          addQuest(title, goal);
+          questForm.reset();
+        });
+
+        function addQuest(title, goal) {
+          const li = document.createElement("li");
+
+          const checkbox = document.createElement("input");
+          checkbox.type = "checkbox";
+
+          const text = document.createElement("div");
+          text.innerHTML = `<strong>${title}</strong><br>"El hombre no obedece a los gritos… pero se doblega ante un pacible ronroneo.”
+ ${goal}`;
+
+          checkbox.addEventListener("change", () => {
+            if (checkbox.checked) {
+              li.classList.add("completed");
+              completedQuests.appendChild(li);
+              updateCharacter();
+            }
+          });
+
+          li.appendChild(checkbox);
+          li.appendChild(text);
+          activeQuests.appendChild(li);
+        }
+
+        function updateCharacter() {
+          currentImage = (currentImage + 1) % characterImages.length;
+          characterImg.src = characterImages[currentImage];
+        }
+      });
+    </script>
+  </body>
+</html>
